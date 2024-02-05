@@ -1,4 +1,6 @@
 const notes = require("express").Router();
+const { readFromFile, readAndAppend } = require('../helpers/fsUtils');
+const uniqid = require("uniqid");
 
 // GET request
 notes.get("/", (req, res) => {
@@ -13,7 +15,7 @@ const { title, text } = req.body;
     const newNote = {
       title,
       text,
-    //   note_id: uuid(),
+      note_id: uniqid(),
     };
 
     readAndAppend(newNote, './db/db.json');

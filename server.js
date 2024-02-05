@@ -7,10 +7,10 @@ const PORT = 3001; // puts a port into a variable for us to create a server on
 const app = express(); // allows us to use the express library through a variable 
 
 // middleware
-app.use("/api", api)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use("/api", api)
 
 // GET request route for homepage
 app.get("/", (req, res) => {
