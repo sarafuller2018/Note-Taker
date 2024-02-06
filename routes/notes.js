@@ -15,7 +15,7 @@ const { title, text } = req.body;
     const newNote = {
       title,
       text,
-      note_id: uniqid(),
+      id: uniqid(),
     };
 
     readAndAppend(newNote, './db/db.json');
@@ -24,5 +24,9 @@ const { title, text } = req.body;
     res.error('Error in adding tip');
   }
 });
+
+notes.delete("/", (req, res) => {
+  res.send("Delete request called");
+})
 
 module.exports = notes;
