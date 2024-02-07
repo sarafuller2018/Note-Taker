@@ -1,7 +1,6 @@
 const notes = require("express").Router();
 const { readFromFile, readAndAppend } = require('../helpers/fsUtils');
 const uniqid = require("uniqid");
-const db = require("../db/db.json");
 
 // GET request
 notes.get("/", (req, res) => {
@@ -30,14 +29,20 @@ const { title, text } = req.body;
 notes.delete("/:id", (req, res) => {
   
   const id = req.params.id;
-  
+
   if (id) {
     console.log(`Deleting note with id: ${id}`)
     
-    readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));
-    
-    
-  }});
+    function checkID(db) {
+     return db !== id }
 
+    readFromFile("./db/db.json")
+    .then((data) => { 
+      const parsedData = JSON.parse(data);
+      const filteredData = parsedData.filter(checkID);
+      console.log(filteredData);
+      return filteredData;
+    })
+  }});
 
 module.exports = notes;
