@@ -3,12 +3,12 @@ const { readFromFile, readAndAppend } = require('../helpers/fsUtils');
 const uniqid = require("uniqid");
 const fs = require("fs");
 
-// GET request
+// GET request - reads db.json file and parses data
 notes.get("/", (req, res) => {
   readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));
 });
 
-// POST request
+// POST request - posts new note if requirements are met, logs out status
 notes.post("/", (req, res) => {
   const { title, text } = req.body;
 
@@ -26,7 +26,7 @@ notes.post("/", (req, res) => {
   }
 });
 
-// DELETE request
+// DELETE request - deletes note when delete button is pressed, rewrites new file to page, finishes promise request to finalize
 notes.delete("/:id", (req, res) => {
 
   const id = req.params.id;
