@@ -47,10 +47,9 @@ notes.delete("/:id", (req, res) => {
 
         fs.writeFile('./db/db.json', JSON.stringify(filteredData) || [], (err) =>
           err ? console.error(err) : console.log('Success!'));
-      });
+      })
+      .then(() => res.json({ ok: true }));
   }
-
-  reload();
 });
 
 module.exports = notes;
