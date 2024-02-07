@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const api = require("./routes/index");
 
-const PORT = 3001; // port into a variable to create a server on
+const PORT = process.env.PORT || 3001; // port into a variable to create a server on
 
 const app = express(); // allows use of express library through a variable 
 
