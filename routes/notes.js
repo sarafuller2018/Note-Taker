@@ -1,6 +1,7 @@
 const notes = require("express").Router();
 const { readFromFile, readAndAppend } = require('../helpers/fsUtils');
 const uniqid = require("uniqid");
+const db = require("../db/db.json");
 
 // GET request
 notes.get("/", (req, res) => {
@@ -21,12 +22,22 @@ const { title, text } = req.body;
     readAndAppend(newNote, './db/db.json');
     res.json(`Note added successfully`);
   } else {
-    res.error('Error in adding tip');
+    res.error('Error in adding note');
   }
 });
 
-notes.delete("/", (req, res) => {
-  res.send("Delete request called");
-})
+// DELETE request
+notes.delete("/:id", (req, res) => {
+  
+  const id = req.params.id;
+  
+  if (id) {
+    console.log(`Deleting note with id: ${id}`)
+    
+    readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));
+    
+    
+  }});
+
 
 module.exports = notes;
